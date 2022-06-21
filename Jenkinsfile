@@ -21,7 +21,7 @@ pipeline {
             steps {
                 script {
 
-                       sh "docker build -t hasmo/php:${env.BRANCH_NAME}-${env.BUILD_NUMBER} ."
+                       sh "docker build -t donhasmo/php-todo:${env.BRANCH_NAME}-${env.BUILD_NUMBER} ."
                 }
             }
         }
