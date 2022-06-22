@@ -21,7 +21,7 @@ pipeline {
             steps {
                 script {
 
-                       sh "docker build -t hasmo/php:${env.BRANCH_NAME}-${env.BUILD_NUMBER} ."
+                       sh "docker build -t hasmo/php:0.0.1${env.BRANCH_NAME}-${env.BUILD_NUMBER} ."
                 }
             }
         }
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                    sh "docker push hasmo/php:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+                    sh "docker push hasmo/php:0.0.1${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
                 }
             }
         }
