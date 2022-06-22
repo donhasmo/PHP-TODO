@@ -30,22 +30,15 @@ pipeline {
                 sh "docker-compose up -d"
             }
         }
-        stage("Test endpoint") {
-          steps {
-              script {
-                  while (true) {
-                      def response = httpRequest 'http://localhost:8000'
-                      if (response.status == 200) {
-                          withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: '99f88c1d-3661-41c9-9599-79943736419c', usernameVariable: 'hasmo')]) {
-                              sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                              sh "docker push hasmo/php:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
-                          }
-                          break 
-                      }
-                  }
-              }
-          }
-      }
+        stage ('Test endpoint') {
+            steps {
+                script {
+
+                     sh "sleep 10"
+                     sh "curl -i 50.112.225.144:8000"
+                }
+            }
+        }
 
         // stage ('Push Docker Image') {
         //     when { expression { response.status == 200 } }
