@@ -26,14 +26,14 @@ pipeline {
             }
         }
 
-        stage ('Push Docker Image') {
-            steps{
-                script {
-            sh "docker login -u ${hasmo} -p ${99f88c1d-3661-41c9-9599-79943736419c}"
-
-            sh "docker push hasmo/php:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+        stage('Docker Push') {
+            when { expression { response.status == 200 } }
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                    sh "docker push anefu/php-todo:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+                }
             }
-          }
         }
 
     }
