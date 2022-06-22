@@ -31,7 +31,7 @@ pipeline {
                 script {
             sh "docker login -u ${env.username} -p ${env.password}"
 
-            sh "docker push uzukwujp/php-todo:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+            sh "docker push hasmo/php:0.0.1${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
             }
           }
         }
