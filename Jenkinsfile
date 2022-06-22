@@ -26,14 +26,24 @@ pipeline {
             }
         }
 
-        stage('Docker Push') {
+        stage ('Push Docker Image') {
+            steps{
+                script {
+            sh "docker login -u ${env.username} -p ${env.password}"
+
+            sh "docker push uzukwujp/php-todo:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+            }
+          }
+        }
+
+        stage ('logout Docker') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: '99f88c1d-3661-41c9-9599-79943736419c', usernameVariable: 'hasmo')]) {
-                    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                    sh "docker push hasmo/php:0.0.1${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+                script {
+
+                    sh "docker logout"
+
                 }
             }
         }
-
     }
 }
