@@ -8,7 +8,7 @@ services:
     links:
       - db
   db:
-    image: mysql-server:latest
+    image: mysql:5.7
     restart: always
     environment:
       MYSQL_DATABASE: toolingdb
